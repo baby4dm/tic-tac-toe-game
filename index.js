@@ -322,17 +322,23 @@ function resetBoard() {
 
 cells.forEach((cell, i) => {
   cell.addEventListener("mouseenter", () => {
-    if (!board[i]) {
-      cell.classList.add(playerMark === "X" ? "x-hover" : "o-hover");
-      cell.innerHTML = playerMark === "X" ? getXSVGOutline() : getOSVGOutline();
-    }
+    if (board[i] || isCpuThinking || cell.classList.contains("disabled"))
+      return;
+    const hoverMark = vsCPU ? playerMark : currentPlayer;
+
+    cell.classList.add(hoverMark === "X" ? "x-hover" : "o-hover");
+    cell.innerHTML = hoverMark === "X" ? getXSVGOutline() : getOSVGOutline();
   });
 
   cell.addEventListener("mouseleave", () => {
-    if (!board[i]) {
-      cell.classList.remove("x-hover", "o-hover");
-      cell.innerHTML = "";
-    }
+    if (board[i]) return;
+    cell.classList.remove("x-hover", "o-hover");
+    cell.innerHTML = "";
+  });
+
+  cell.addEventListener("click", () => {
+    cell.classList.remove("x-hover", "o-hover");
+    cell.innerHTML = "";
   });
 });
 
