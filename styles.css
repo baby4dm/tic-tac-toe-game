@@ -75,6 +75,7 @@ button {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 .quit-btn,
 .no-btn {
@@ -82,11 +83,20 @@ button {
   min-width: 76px;
   box-shadow: 0px 4px 0px 0px #6b8997;
 }
+
+.quit-btn:hover,
+.no-btn:hover {
+  background-color: #dbe8ed;
+}
 .restart-game-btn,
 .yes-btn {
   background-color: #f2b137;
   min-width: 146px;
   box-shadow: 0px 4px 0px 0px #cc8b13;
+}
+.restart-game-btn:hover,
+.yes-btn:hover {
+  background-color: #ffc860;
 }
 .overlay {
   position: fixed;
@@ -167,7 +177,8 @@ button {
 }
 
 .switch button:hover {
-  transform: scale(1.05);
+  background-color: rgba(168, 191, 201, 0.05);
+  border-radius: 10px;
 }
 
 .switch svg {
@@ -284,6 +295,10 @@ button {
   align-items: center;
   box-shadow: inset 0px -4px 0px 0px #6b8997;
   justify-self: end;
+  cursor: pointer;
+}
+.restart-btn:hover {
+  background-color: #dbe8ed;
 }
 .cells {
   width: 100%;
@@ -305,15 +320,24 @@ button {
   cursor: pointer;
   padding: 28px;
 }
+
+.cell.x-hover svg path,
+.cell.o-hover svg path {
+  transition: stroke 0.2s;
+}
+
 .cell.disabled {
   pointer-events: none;
 }
-.cell svg {
+.cell svg,
+.cell.x-hover svg,
+.cell.o-hover svg {
   min-height: 40px;
   min-width: 40px;
   max-height: 64px;
   max-width: 64px;
 }
+
 .history-section {
   width: 100%;
   min-height: 64px;
