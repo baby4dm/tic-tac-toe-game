@@ -18,20 +18,11 @@ let board = Array(9).fill(null);
 let currentPlayer = "X";
 let vsCPU = false;
 let isCpuThinking = false;
+let youWins = Number(localStorage.getItem("youWins")) || 0;
+let cpuWins = Number(localStorage.getItem("cpuWins")) || 0;
+let ties = Number(localStorage.getItem("ties")) || 0;
 
-cpuButton.addEventListener("click", () => {
-  vsCPU = true;
-  startScreen.classList.add("hidden");
-  gameScreen.classList.remove("hidden");
-  startGame();
-});
-
-playerButton.addEventListener("click", () => {
-  vsCPU = false;
-  startScreen.classList.add("hidden");
-  gameScreen.classList.remove("hidden");
-  startGame();
-});
+updateHistoryUI();
 
 function startGame() {
   board.fill(null);
@@ -205,13 +196,19 @@ function endGame(winner) {
 
   if (winner === "X" || winner === "O") {
     winnerIcon.innerHTML = winner === "X" ? getXSVG() : getOSVG();
-
     title.textContent = "TAKES THE ROUND";
     title.style.color = winner === "X" ? "#31C3BD" : "#F2B137";
 
     if (vsCPU) {
-      subtitle.textContent =
-        winner === playerMark ? "YOU WON!" : "OH NO, YOU LOST…";
+      if (winner === playerMark) {
+        subtitle.textContent = "YOU WON!";
+        youWins++;
+        localStorage.setItem("youWins", youWins);
+      } else {
+        subtitle.textContent = "OH NO, YOU LOST…";
+        cpuWins++;
+        localStorage.setItem("cpuWins", cpuWins);
+      }
     } else {
       subtitle.textContent =
         winner === "X" ? "PLAYER 1 WINS!" : "PLAYER 2 WINS!";
@@ -223,7 +220,20 @@ function endGame(winner) {
     title.textContent = "ROUND TIED";
     title.style.color = "#A8BFC9";
     subtitle.classList.add("hidden");
+
+    if (vsCPU) {
+      ties++;
+      localStorage.setItem("ties", ties);
+    }
   }
+
+  updateHistoryUI();
+}
+
+function updateHistoryUI() {
+  document.querySelector(".you-win-number").textContent = youWins;
+  document.querySelector(".ties-number").textContent = ties;
+  document.querySelector(".cpu-win-number").textContent = cpuWins;
 }
 
 daggerButton.addEventListener("click", () => {
@@ -238,6 +248,20 @@ circleButton.addEventListener("click", () => {
   daggerButton.classList.remove("active");
   switchContainer.classList.add("circle-active");
   playerMark = "O";
+});
+
+cpuButton.addEventListener("click", () => {
+  vsCPU = true;
+  startScreen.classList.add("hidden");
+  gameScreen.classList.remove("hidden");
+  startGame();
+});
+
+playerButton.addEventListener("click", () => {
+  vsCPU = false;
+  startScreen.classList.add("hidden");
+  gameScreen.classList.remove("hidden");
+  startGame();
 });
 
 quitBtn.addEventListener("click", () => {
