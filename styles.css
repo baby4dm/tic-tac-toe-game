@@ -345,7 +345,8 @@ button {
     letter-spacing: 1.25px;
   }
   .game-screen .header {
-    margin-block: 16px;
+    margin-block: 0;
+    margin-bottom: 16px;
     height: 52px;
   }
   .turn-section {
@@ -382,5 +383,22 @@ button {
   .main-text h2 {
     font-size: 40px;
     letter-spacing: 2.5px;
+  }
+}
+@media (min-width: 1440px) {
+  .start-screen {
+    height: 471px;
+  }
+  .side-container {
+    height: 205px;
+  }
+  .switch {
+    height: 72px;
+  }
+  .buttons-section {
+    gap: 20px;
+  }
+  .game-screen {
+    height: 623px;
   }
 }
