@@ -18,6 +18,70 @@ button {
   border: none;
   background: none;
 }
+.result-section {
+  background-color: #1f3641;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 24px;
+  padding: 44px 47px;
+  position: absolute;
+  z-index: 20;
+}
+.subtitle {
+  font-size: 14px;
+  color: #a8bfc9;
+  font-weight: 700;
+}
+.main-text {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.main-text svg {
+  height: 30px;
+  width: 30px;
+}
+.main-text h2 {
+  font-size: 24px;
+  letter-spacing: 1.5px;
+}
+.btns-section {
+  height: 52px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+.btns-section button {
+  color: #1a2a33;
+  font-size: 16px;
+  font-weight: 700;
+  height: 100%;
+  border-radius: 10px;
+  letter-spacing: 1px;
+}
+.quit-btn {
+  background-color: #a8bfc9;
+  min-width: 76px;
+  box-shadow: 0px 4px 0px 0px #6b8997;
+}
+.restart-game-btn {
+  background-color: #f2b137;
+  min-width: 146px;
+  box-shadow: 0px 4px 0px 0px #cc8b13;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.55);
+  height: 100%;
+  width: 100%;
+}
 .start-screen {
   display: flex;
   flex-direction: column;
@@ -176,6 +240,13 @@ button {
   padding: 11px 15px;
   height: 100%;
 }
+.side-icon {
+  width: 16px;
+  height: 16px;
+}
+.side-icon svg path {
+  fill: #a8bfc9;
+}
 .turn-section .side-icon svg {
   display: block;
 }
@@ -206,7 +277,19 @@ button {
 .cell {
   background-color: #1f3641;
   border-radius: 10px;
-  box-shadow: inset 0px -8px 0px 0px #10212a;
+  box-shadow: 0px 8px 0px 0px #10212a;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.cell.disabled {
+  pointer-events: none;
+}
+.cell svg {
+  height: 40px;
+  width: 40px;
 }
 .history-section {
   width: 100%;
@@ -222,16 +305,16 @@ button {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: #1A2A33;
+  color: #1a2a33;
 }
 .you-win {
-  background-color: #31C3BD;
+  background-color: #31c3bd;
 }
 .ties {
-  background-color: #A8BFC9;
+  background-color: #a8bfc9;
 }
 .cpu-win {
-  background-color: #F2B137;
+  background-color: #f2b137;
 }
 .history-section .title {
   font-size: 12px;
@@ -241,6 +324,7 @@ button {
   font-size: 20px;
   font-weight: 700;
 }
+
 .hidden {
   display: none;
 }
