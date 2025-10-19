@@ -12,6 +12,9 @@ const resultSection = document.querySelector(".result-section");
 const quitBtn = document.querySelector(".quit-btn");
 const nextRoundBtn = document.querySelector(".restart-game-btn");
 const restartBtn = document.querySelector(".restart-btn");
+const confirmSection = document.querySelector(".confirm-section");
+const noBtn = document.querySelector(".no-btn");
+const yesBtn = document.querySelector(".yes-btn");
 
 let playerMark = "O";
 let board = Array(9).fill(null);
@@ -280,7 +283,22 @@ quitBtn.addEventListener("click", () => {
 });
 
 nextRoundBtn.addEventListener("click", resetBoard);
-restartBtn.addEventListener("click", resetBoard);
+
+restartBtn.addEventListener("click", () => {
+  overlay.classList.remove("hidden");
+  confirmSection.classList.remove("hidden");
+});
+
+noBtn.addEventListener("click", () => {
+  overlay.classList.add("hidden");
+  confirmSection.classList.add("hidden");
+});
+
+yesBtn.addEventListener("click", () => {
+  overlay.classList.add("hidden");
+  confirmSection.classList.add("hidden");
+  resetBoard();
+});
 
 function resetBoard() {
   resultSection.classList.add("hidden");
