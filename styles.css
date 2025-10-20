@@ -318,9 +318,14 @@ button {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  /* padding: 28px; */
+}
+.cell.x svg path {
+  color: #31c3bd;
 }
 
+.cell.o svg path {
+  color: #f2b137;
+}
 .cell.x-hover svg path,
 .cell.o-hover svg path {
   transition: stroke 0.2s;
