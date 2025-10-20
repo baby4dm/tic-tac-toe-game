@@ -308,17 +308,21 @@ function resetBoard() {
   overlay.classList.add("hidden");
 
   board.fill(null);
+
   cells.forEach((cell, i) => {
     cell.innerHTML = "";
     cell.classList.remove("disabled", "x-hover", "o-hover");
     cell.style.backgroundColor = "#1f3641";
 
-    const newCell = cell.cloneNode(false);
-    cell.parentNode.replaceChild(newCell, cell);
+    const newCell = cell.cloneNode(true);
+    cell.replaceWith(newCell);
 
     newCell.addEventListener("click", () => handleMove(i), { once: true });
+
     cells[i] = newCell;
   });
+
+  cells = Array.from(document.querySelectorAll(".cell"));
 
   currentPlayer = "X";
   updateTurnContainer(currentPlayer);
