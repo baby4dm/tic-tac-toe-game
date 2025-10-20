@@ -31,7 +31,32 @@ function startGame() {
   board.fill(null);
   cells.forEach((cell, i) => {
     cell.innerHTML = "";
-    cell.addEventListener("click", () => handleMove(i), { once: true });
+    cell.classList.remove("disabled", "x-hover", "o-hover");
+    cell.style.backgroundColor = "#1f3641";
+
+    // Прибираємо старі слухачі через клонування
+    const newCell = cell.cloneNode(false);
+    cell.replaceWith(newCell);
+    cells[i] = newCell;
+
+    // Додаємо обробник кліку
+    newCell.addEventListener("click", () => handleMove(i), { once: true });
+
+    // Додаємо hover при наведенні
+    newCell.addEventListener("mouseenter", () => {
+      if (board[i] || isCpuThinking || newCell.classList.contains("disabled"))
+        return;
+      const hoverMark = vsCPU ? playerMark : currentPlayer;
+      newCell.classList.add(hoverMark === "X" ? "x-hover" : "o-hover");
+      newCell.innerHTML =
+        hoverMark === "X" ? getXSVGOutline() : getOSVGOutline();
+    });
+
+    newCell.addEventListener("mouseleave", () => {
+      if (board[i]) return;
+      newCell.classList.remove("x-hover", "o-hover");
+      newCell.innerHTML = "";
+    });
   });
 
   currentPlayer = "X";
@@ -310,45 +335,43 @@ function resetBoard() {
   board.fill(null);
 
   cells.forEach((cell, i) => {
+    cell.innerHTML = "";
+    cell.classList.remove("disabled", "x-hover", "o-hover");
+    cell.style.backgroundColor = "#1f3641";
+
+    // прибираємо старі слухачі (через клонування)
     const newCell = cell.cloneNode(false);
-    newCell.className = cell.className;
-    newCell.style.backgroundColor = "#1f3641";
-
     cell.replaceWith(newCell);
-    newCell.addEventListener("click", () => handleMove(i), { once: true });
-  });
+    cells[i] = newCell;
 
-  cells = Array.from(document.querySelectorAll(".cell"));
+    // хід
+    newCell.addEventListener("click", () => handleMove(i), { once: true });
+
+    // hover при наведенні
+    newCell.addEventListener("mouseenter", () => {
+      if (board[i] || isCpuThinking || newCell.classList.contains("disabled"))
+        return;
+      const hoverMark = vsCPU ? playerMark : currentPlayer;
+      newCell.classList.add(hoverMark === "X" ? "x-hover" : "o-hover");
+      newCell.innerHTML =
+        hoverMark === "X" ? getXSVGOutline() : getOSVGOutline();
+    });
+
+    newCell.addEventListener("mouseleave", () => {
+      if (board[i]) return;
+      newCell.classList.remove("x-hover", "o-hover");
+      newCell.innerHTML = "";
+    });
+  });
 
   currentPlayer = "X";
   updateTurnContainer(currentPlayer);
 
+  // якщо гравець обрав O, CPU починає
   if (vsCPU && playerMark === "O") {
     cpuTurn();
   }
 }
-
-cells.forEach((cell, i) => {
-  cell.addEventListener("mouseenter", () => {
-    if (board[i] || isCpuThinking || cell.classList.contains("disabled"))
-      return;
-    const hoverMark = vsCPU ? playerMark : currentPlayer;
-
-    cell.classList.add(hoverMark === "X" ? "x-hover" : "o-hover");
-    cell.innerHTML = hoverMark === "X" ? getXSVGOutline() : getOSVGOutline();
-  });
-
-  cell.addEventListener("mouseleave", () => {
-    if (board[i]) return;
-    cell.classList.remove("x-hover", "o-hover");
-    cell.innerHTML = "";
-  });
-
-  cell.addEventListener("click", () => {
-    cell.classList.remove("x-hover", "o-hover");
-    cell.innerHTML = "";
-  });
-});
 
 function getXSVG() {
   return `
