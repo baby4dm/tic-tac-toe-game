@@ -314,12 +314,13 @@ function resetBoard() {
     cell.classList.remove("disabled", "x-hover", "o-hover");
     cell.style.backgroundColor = "#1f3641";
 
-    const newCell = cell.cloneNode(true);
-    cell.replaceWith(newCell);
+    const newCell = cell;
+    const freshCell = newCell.cloneNode(false);
+    freshCell.className = newCell.className;
+    newCell.replaceWith(freshCell);
 
-    newCell.addEventListener("click", () => handleMove(i), { once: true });
-
-    cells[i] = newCell;
+    freshCell.addEventListener("click", () => handleMove(i), { once: true });
+    cells[i] = freshCell;
   });
 
   cells = Array.from(document.querySelectorAll(".cell"));
