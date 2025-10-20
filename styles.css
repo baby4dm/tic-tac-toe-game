@@ -319,13 +319,14 @@ button {
   justify-content: center;
   cursor: pointer;
 }
-.cell.x svg path {
+.cell.x {
   color: #31c3bd;
 }
 
-.cell.o svg path {
+.cell.o {
   color: #f2b137;
 }
+
 .cell.x-hover svg path,
 .cell.o-hover svg path {
   transition: stroke 0.2s;
