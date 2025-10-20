@@ -5,7 +5,7 @@ const cpuButton = document.querySelector(".cpu-button");
 const playerButton = document.querySelector(".player-button");
 const startScreen = document.querySelector(".start-screen");
 const gameScreen = document.querySelector(".game-screen");
-const cells = document.querySelectorAll(".cell");
+let cells = Array.from(document.querySelectorAll(".cell"));
 const sideIcon = document.querySelector(".side-icon");
 const overlay = document.querySelector(".overlay");
 const resultSection = document.querySelector(".result-section");
@@ -310,17 +310,12 @@ function resetBoard() {
   board.fill(null);
 
   cells.forEach((cell, i) => {
-    cell.innerHTML = "";
-    cell.classList.remove("disabled", "x-hover", "o-hover");
-    cell.style.backgroundColor = "#1f3641";
+    const newCell = cell.cloneNode(false);
+    newCell.className = cell.className;
+    newCell.style.backgroundColor = "#1f3641";
 
-    const newCell = cell;
-    const freshCell = newCell.cloneNode(false);
-    freshCell.className = newCell.className;
-    newCell.replaceWith(freshCell);
-
-    freshCell.addEventListener("click", () => handleMove(i), { once: true });
-    cells[i] = freshCell;
+    cell.replaceWith(newCell);
+    newCell.addEventListener("click", () => handleMove(i), { once: true });
   });
 
   cells = Array.from(document.querySelectorAll(".cell"));
