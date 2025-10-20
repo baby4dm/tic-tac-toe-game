@@ -91,6 +91,10 @@ function highlightWinner(combo, player) {
 function makeMove(index, player) {
   board[index] = player;
   cells[index].innerHTML = player === "X" ? getXSVG() : getOSVG();
+
+  const cell = cells[index];
+  const clone = cell.cloneNode(true);
+  cell.parentNode.replaceChild(clone, cell);
 }
 
 function cpuTurn() {
