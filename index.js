@@ -90,13 +90,10 @@ function highlightWinner(combo, player) {
 
 function makeMove(index, player) {
   board[index] = player;
-  cells[index].innerHTML = player === "X" ? getXSVG() : getOSVG();
-
   const cell = cells[index];
-  cell.offsetHeight;
-
-  const clone = cell.cloneNode(true);
-  cell.parentNode.replaceChild(clone, cell);
+  cell.innerHTML = player === "X" ? getXSVG() : getOSVG();
+  cell.classList.remove("x-hover", "o-hover");
+  cell.removeEventListener("click", handleMove);
 }
 
 function cpuTurn() {
@@ -313,9 +310,14 @@ function resetBoard() {
   board.fill(null);
   cells.forEach((cell, i) => {
     cell.innerHTML = "";
-    cell.classList.remove("disabled");
+    cell.classList.remove("disabled", "x-hover", "o-hover");
     cell.style.backgroundColor = "#1f3641";
-    cell.addEventListener("click", () => handleMove(i), { once: true });
+
+    const newCell = cell.cloneNode(false);
+    cell.parentNode.replaceChild(newCell, cell);
+
+    newCell.addEventListener("click", () => handleMove(i), { once: true });
+    cells[i] = newCell;
   });
 
   currentPlayer = "X";
