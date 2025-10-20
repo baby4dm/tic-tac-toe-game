@@ -318,7 +318,7 @@ button {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  padding: 28px;
+  /* padding: 28px; */
 }
 
 .cell.x-hover svg path,
@@ -332,8 +332,6 @@ button {
 .cell svg,
 .cell.x-hover svg,
 .cell.o-hover svg {
-  min-height: 40px;
-  min-width: 40px;
   max-height: 64px;
   max-width: 64px;
 }
